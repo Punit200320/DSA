@@ -1,0 +1,36 @@
+class Solution {
+    public boolean helper(int[] weights, int days,int mid){
+        int day =1;
+        int curr = 0;
+        for( int i =0; i < weights.length; i++){
+            curr += weights[i];
+
+            if(curr > mid){
+                day++;
+                curr = weights[i]; 
+            }
+        }
+        return day <= days;
+    }
+    public int shipWithinDays(int[] weights, int days) {
+         int sum = 0;
+         int max1 = 0;
+         for(int i = 0; i < weights.length; i++){
+            sum = sum  + weights[i];
+            max1 = Math.max(max1, weights[i]);
+         }
+         int left =max1;
+         int right = sum;
+         int ans = sum;
+         while(left <= right){
+            int mid = left + (right -left)/2;
+            if(helper(weights,days,mid)){
+                ans = mid;
+                right = mid - 1;
+            }else{
+                 left = mid + 1;
+            }
+         }
+         return ans;
+    }
+}
