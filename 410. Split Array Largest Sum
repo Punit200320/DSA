@@ -1,0 +1,34 @@
+class Solution {
+    public boolean feasible(int[] nums,int k, int mid){
+        int currsum = 0;
+        int c =1;
+       for(int i = 0; i < nums.length; i++){
+          if(currsum + nums[i] <= mid){
+            currsum  = currsum + nums[i];
+          }else{
+            c++;
+            currsum = nums[i];
+          }
+       }
+        return c <= k;
+    } 
+    public int splitArray(int[] nums, int k) {
+      int min =0,max =0;
+      for(int i = 0; i < nums.length; i++){
+        max = max + nums[i];
+        min = Math.max(min,nums[i]);
+      }
+      int res = 0;
+      while(min <= max){
+        int mid = min + (max - min)/2;
+        if(feasible(nums,k, mid)){
+            res = mid;
+            max = mid - 1;
+        }
+        else{
+               min = mid + 1;
+        }  
+        System.gc();
+    }return res;
+}
+}
