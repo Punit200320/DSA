@@ -1,0 +1,35 @@
+class Solution {
+    static int dp[][];
+    static public boolean subsets(int[] arr,int sum , int i){
+        if( sum ==0){
+            return true;
+        }
+        if(i >= arr.length || sum < 0){
+            return false;
+        }
+        if(dp[i][sum] != -1){
+            return dp[i][sum] == 1;
+        }
+        boolean take = subsets(arr,sum - arr[i] ,i+1) ;
+        boolean skip = subsets(arr,sum ,i + 1);
+        
+        dp[i][sum] = (take ||skip) ? 1 : 0;
+        
+        return take || skip;
+    }
+    static Boolean isSubsetSum(int arr[], int sum) {
+        // code here
+        int target =0;
+        for(int i = 0; i < arr.length; i++){
+            target = target + arr[i];
+            if(target == sum){
+                return true;
+            }
+        }
+        dp = new int[arr.length][sum +1];
+        for(int[] row :dp){
+            Arrays.fill(row , -1);
+        }
+        return subsets(arr,sum ,0);
+    }
+}
