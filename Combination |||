@@ -1,0 +1,22 @@
+class Solution {
+    public List<List<Integer>> combinationSum3(int k, int n) {
+    List<List<Integer>> subset = new ArrayList();
+    gensubsets(1,9,new ArrayList(),subset,k,n);
+    return subset;
+    }
+    void gensubsets(int start,int end,List<Integer> curr,List<List<Integer>> subset,int k,int n){
+        if( n == 0 && curr.size() == k){
+            subset.add(new ArrayList(curr));
+            return;
+        }
+        if( n < 0 || curr.size() > k){
+            return;
+        }
+
+     for(int i = start; i <= end; i++){
+        curr.add(i);
+        gensubsets(i + 1,end,curr,subset,k,n - i);
+        curr.remove(curr.size() - 1);
+     }
+    }
+}
