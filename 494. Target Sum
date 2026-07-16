@@ -1,0 +1,27 @@
+class Solution {
+    int sum = 0;
+    public int solve(int[] nums,int target,int ind,int currsum,int[][] t){
+      if(ind ==  nums.length){
+        return currsum == target ? 1:0;
+      }
+      if(t[ind][currsum + sum] != Integer.MIN_VALUE){
+        return t[ind][currsum +sum];
+      }
+
+      int plus = solve(nums, target,ind + 1, currsum + nums[ind],t);
+      int minus = solve(nums, target, ind + 1, currsum - nums[ind], t);
+
+      return t[ind][currsum + sum] = plus + minus;
+    }
+    public int findTargetSumWays(int[] nums, int target) {
+      int n = nums.length;
+      for(int i = 0; i < n; i++){
+        sum = sum + nums[i];
+      }  
+    int[][] t = new int[n][ 2 * sum +1];
+    for(int[] row : t){
+        Arrays.fill(row,Integer.MIN_VALUE);
+    }
+    return solve(nums,target,0,0,t);
+    }
+}
