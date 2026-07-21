@@ -1,0 +1,23 @@
+class Solution {
+    int[][] dp;
+    private int solve(String s, int j, int i){
+     if(i >= j){
+        return 0;
+     }
+     if(dp[i][j] != -1){
+        return dp[i][j];
+     }
+     if(s.charAt(i) == s.charAt(j)){
+        return dp[i][j] = solve(s, j - 1, i+1);
+     }
+     return dp[i][j] = 1 + Math.min(solve(s,j -1, i), solve(s,j, i+1));
+    }
+    public int minInsertions(String s) {
+        dp = new int[501][501];
+        int n = s.length();
+        for(int[] row : dp){
+            Arrays.fill(row, -1);
+        }
+        return solve(s,n -1,0);
+    }
+}
