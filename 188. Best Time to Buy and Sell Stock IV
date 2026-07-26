@@ -1,0 +1,32 @@
+class Solution {
+    int[][][] dp;
+    private int maxa(int i,int buy1,int[] prices,int k){
+       if(i >= prices.length || k == 0){
+        return 0;
+       }
+       if(dp[i][buy1][k] != -1){
+        return dp[i][buy1][k];
+       }
+       int ans = 0;
+       if(buy1 == 0){
+        int buy = maxa(i + 1, 1, prices,k) -prices[i];
+        int notbuy = maxa(i + 1,0, prices ,k);
+        ans = Math.max(buy,notbuy);
+       }else{
+        int sell = maxa(i + 1, 0, prices, k - 1)  + prices[i];
+        int notsell = maxa(i + 1, 1, prices, k);
+        ans = Math.max(sell,notsell);
+       }
+       return dp[i][buy1][k] = ans;
+    }
+    public int maxProfit(int k, int[] prices) {
+        int n = prices.length;
+        dp = new int[n + 1][2][k+1];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < 2; j++){
+                Arrays.fill(dp[i][j] , -1);
+            }
+        }
+        return maxa(0,0, prices,k);
+    }
+}
