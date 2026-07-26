@@ -1,0 +1,17 @@
+class Solution {
+    // private int solve(int i,int n,int[] nums,int k){
+    //     if(i >= n || k == 0){
+    //         return 0;
+    //     }
+    //     int ans = 1;
+    //     int take  =  
+    // }
+    public int maximumProduct(int[] nums) {
+    Arrays.sort(nums);
+    int n = nums.length;
+    return Math.max(
+      nums[n - 1] * nums[ n  - 2] * nums[ n -3],
+      nums[n - 1] * nums[0] * nums[1]
+    );
+    }
+}
