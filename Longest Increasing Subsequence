@@ -1,0 +1,31 @@
+
+class Solution {
+    private static int lis1(int[] arr, int prev, int curr,int[][] dp,int n){
+        if(curr == n){
+            return 0;
+        }
+       if(prev != -1 && dp[prev][curr] != -1){
+           return dp[prev][curr];
+       }
+       int take = 0;
+       if (prev == -1 || arr[curr] > arr[prev]){
+           take = 1 + lis1(arr, curr , curr + 1,dp,n);
+       }
+       int nottake = lis1(arr,prev, curr + 1,dp,n);
+       
+       if(prev != -1){
+           dp[prev][curr] = Math.max(take,nottake);
+       }
+       return Math.max(nottake,take);
+    }
+    static int lis(int arr[]) {
+        // code here
+      
+     int[][]  dp = new int[1001][1001];
+     int  n = arr.length; 
+      for(int[] row : dp){
+          Arrays.fill(row, -1);
+      }
+      return lis1(arr, - 1, 0,dp,n);
+    }
+}
