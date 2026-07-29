@@ -1,0 +1,53 @@
+class Solution {
+    // public void generate(int i,int[] nums,List<Integer> res,List<Integer> temp,int prev){
+    // if(i >= nums.length){
+    //     if(temp.size() > res.size()){
+    //         res.clear();
+    //         res.addAll(temp);
+    //     }
+    //     return;
+    // }
+    //  if (prev == -1 || nums[i] % prev == 0) {
+    //     temp.add(nums[i]);
+    //     generate(i + 1,nums,res,temp,nums[i]);
+    //     temp.remove(temp.size() - 1);
+
+    // }
+    // generate(i + 1,nums,res,temp,prev);
+    // }
+    public List<Integer> largestDivisibleSubset(int[] nums) {
+    if (nums.length == 0)
+    return new ArrayList<>();
+     Arrays.sort(nums);
+     int n = nums.length;
+     int[] t = new int[n ];
+     Arrays.fill(t, 1);
+     int[] prev = new int[n];
+     Arrays.fill(prev, -1);
+     int last = 0;
+     int maxL = 1;
+
+     for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] % nums[j] == 0) {
+                    if (t[i] < t[j] + 1) {
+                        t[i] = t[j] + 1;
+                        prev[i] = j;
+                    }
+
+                    if (t[i] > maxL) {
+                        maxL = t[i];
+                        last = i;
+                    }
+                }
+            }
+        }
+
+     List<Integer> res = new ArrayList<Integer>();
+     while(last >= 0){
+        res.add(nums[last]);
+        last = prev[last];
+     }
+     return res;
+    }
+}
