@@ -1,0 +1,48 @@
+class Solution {
+    // int n;
+    // public void dfs( ArrayList<ArrayList<Integer>> adj,int u ,boolean[] visited){
+    //     visited[u] = true;
+    //     for(int v :adj.get(u)){
+    //         if(!visited[v]){
+    //         dfs(adj,v,visited);
+    //         }
+    //     }
+    // }
+    int countConnected(int V, ArrayList<ArrayList<Integer>> edges) {
+        // code here
+    ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+    for(int i = 0;  i < V; i++){
+        adj.add(new ArrayList<>());
+    }
+    for(ArrayList<Integer> edge:edges){
+        int u = edge.get(0);
+        int v = edge.get(1);
+        
+        adj.get(u).add(v);
+        adj.get(v).add(u);
+        
+        
+    }
+    boolean[] visited = new boolean[V];
+    Queue<Integer> q = new LinkedList<>();
+    int count = 0;
+    for(int i = 0; i < V; i++){
+        if(!visited[i]){
+            count++;
+            visited[i] = true;
+            q.offer(i);
+            while(!q.isEmpty()){
+                int node = q.poll();
+                for(int neighbor :adj.get(node)){
+                    if(!visited[neighbor]){
+                        visited[neighbor] = true;
+                        q.offer(neighbor);
+                    }
+                }
+            }
+    }
+    
+    }
+    return count;
+}
+}
