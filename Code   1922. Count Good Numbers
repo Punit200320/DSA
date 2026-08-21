@@ -1,0 +1,20 @@
+class Solution {
+    
+   static final   int  M =  (int)1e9 + 7;
+    public long solve(long a, long b){
+        if(b == 0){
+            return 1;
+        }
+        long half = solve(a,b /2);
+        long ans = (half * half) % M;
+
+        if( b % 2 ==1){
+            ans = (ans *a ) % M;
+        }
+        return ans;
+    }
+    public int countGoodNumbers(long n) {
+        long result  = solve(5 , (n + 1)/2) * solve(4, n /2) % M;
+        return (int) result;
+    } 
+}
