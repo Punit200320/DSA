@@ -1,0 +1,35 @@
+class Solution {
+    //ArrayList<Integer> arr = new ArrayList<>();
+    public void sortStack(Stack<Integer> st) {
+        // code here
+        // ArrayList<Integer> arr = new ArrayList<>();
+    //     int a =  st.pop();
+    //     arr.add(a);
+    //     if(!st.isEmpty()){
+    //     sortStack(st);
+    //     }else{
+    //     Collections.sort(arr);
+    //     for(int i =0; i < arr.size(); i++){
+    //         st.push(arr.get(i));
+    //     }
+    //   }
+    if(st.isEmpty()){
+        return;
+    }
+    
+    int x = st.pop();
+    sortStack(st);
+    
+    insert(x,st);
+    }
+    private void insert(int x, Stack<Integer> st){
+     
+    if(st.isEmpty() || x > st.peek()){
+        st.push(x);
+        return;
+    }
+    int top = st.pop();
+    insert(x,st);
+    st.push(top);
+    }
+} 
