@@ -1,0 +1,38 @@
+class Solution {
+    // private int count =0;
+    // int[][] dp;
+    // private int solve(int[] arr, int k,int i){
+        
+    //     if(i == arr.length){
+    //         return k == 0 ? 1 :0;
+    //     }
+    //     // if(k < 0){
+    //     //     return 0;
+    //     // }
+        
+    //     int pick = solve(arr,k - arr[i],i + 1);
+    //     int notpick = solve(arr,k, i + 1);
+        
+    //     return pick + notpick;
+    // }
+    public int countSubset(int[] arr, int k) {
+        // code here
+       HashMap<Integer,Integer> dp = new HashMap<>();
+       dp.put(0,1);
+       for(int num : arr){
+           HashMap<Integer, Integer> next = new HashMap<>(dp);
+           for(Map.Entry<Integer,Integer> entry: dp.entrySet()){
+               int sum = entry.getKey();
+               int count = entry.getValue();
+               
+               int newSum = sum + num;
+               
+               next.put(
+                   newSum,
+                   next.getOrDefault(newSum,0) + count);
+           }
+           dp = next;
+       }
+       return dp.getOrDefault(k,0);
+    }
+}
