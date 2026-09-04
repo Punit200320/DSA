@@ -1,0 +1,82 @@
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+    List<List<Integer>> res = new ArrayList<>();
+    gensum(nums,res,new ArrayList<>(),0);
+    return res;
+    }  
+    void gensum(int[] nums, List<List<Integer>> res, List<Integer> curr, int ind){
+     res.add(new ArrayList<>(curr));
+     for(int i = ind; i < nums.length; i++){
+        curr.add(nums[i]);
+        gensum(nums,res,curr, i +1);
+        curr.remove(curr.size() - 1);
+     } 
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// class Solution {
+//     public List<List<Integer>> subsets(int[] nums) {
+//         List<List<Integer>> res = new ArrayList<>();
+//         gensub(0,nums,new ArrayList<>(),res);
+//         return res;
+// }
+//     void gensub(int idx, int[] nums, List<Integer> curr, List<List<Integer>> res){
+//         res.add(new ArrayList<>(curr));
+//         for( int i = idx; i < nums.length; i++){
+//             curr.add(nums[i]);
+//             gensub(i + 1,nums,curr,res);
+//             curr.remove(curr.size() - 1);
+//         }
+//     }
+// }
