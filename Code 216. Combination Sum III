@@ -1,0 +1,19 @@
+class Solution {
+    public List<List<Integer>> combinationSum3(int k, int n) {
+    List<List<Integer>> res = new ArrayList<>();
+    gensub(1,9,k,n,res,new ArrayList<>());
+    return res;
+    }
+    private void gensub(int start, int end, int k, int n, List<List<Integer>> res,List<Integer> curr){
+     if(n == 0 &&  k == curr.size()){
+        res.add(new ArrayList<>(curr));
+     }
+     if(n < 0 ||  k < curr.size()){
+        return;
+     }
+     for(int i = start; i <= end; i++){
+        curr.add(i);
+        gensub(i + 1, end,k ,n - i, res, curr);
+        curr.remove(curr.size() -1);
+     }
+   
