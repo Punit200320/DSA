@@ -1,0 +1,24 @@
+class Solution {
+    public int[] rearrangeArray(int[] nums) {
+          TreeMap<Integer,Integer> map = new TreeMap<>();
+        for(int x : nums){
+            map.put(x,map.getOrDefault(x,0) + 1);
+        }
+        int[] ans = new int[nums.length];
+        int index = 0;
+
+        while(!map.isEmpty()){
+            ArrayList<Integer> values = new ArrayList<>(map.keySet());
+            for(int x : values){
+                ans[index++] = x;
+                int freq = map.get(x);
+                if(freq == 1){
+                    map.remove(x);
+                }else{
+                    map.put(x,freq -1);
+                }
+            }
+        }
+        return ans;
+    }
+}©leetcode
