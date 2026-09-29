@@ -1,0 +1,44 @@
+class Solution {
+    static boolean isSafe(int node,int[] color,int[][] edges, int col){
+        // if(node == n){
+        //     return true;
+        // }
+        for(int i = 0; i < edges.length; i++){
+          int u = edges[i][0];
+          int v= edges[i][1];
+          
+          if(u == node && color[v] == col){
+              return false;
+          }
+          if( v== node && color[u] == col){
+              return false;
+          }
+        }
+      
+      return true;
+    }
+    static boolean solve(int node,int[] color,int n,int m ,int[][] edges){
+        if(node == n){
+            return true;
+        }
+        for(int i = 1; i <= m; i++){
+            if(isSafe(node,color,edges,i)){
+                color[node] = i;
+                if(solve(node + 1, color,n,m,edges)){
+                    return true;
+                }
+                color[node] = 0;
+            }
+        }
+        return false;
+    }
+    boolean graphColoring(int v, int[][] edges, int m) {
+        // code here
+    int[] color = new int[v];
+    
+    if(solve(0,color,v,m,edges)){
+        return true;
+    }
+    return false;
+    }
+}
