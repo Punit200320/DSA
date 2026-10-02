@@ -1,0 +1,35 @@
+class Item{
+    int weight ,val;
+    Item(int val, int weight){
+        this.val = val;
+        this.weight = weight;
+    }
+    
+}
+class Solution {
+    public double fractionalKnapsack(int[] val, int[] wt, int capacity) {
+        // code here
+        int n  = val.length;
+       List<Item> items = new ArrayList<>();
+        for(int i = 0;i < n; i++){
+            items.add(new Item(val[i],wt[i]));
+        }
+        
+       Collections.sort(items,(a,b)->{
+           double r1 = (1.0 * a.val)/a.weight;
+           double r2 = (1.0 * b.val)/b.weight;
+           return Double.compare(r2,r1);
+       });
+       double result = 0.0;
+       for(Item item :items){
+           if(item.weight <= capacity){
+               result += item.val;
+               capacity -= item.weight;
+           }else{
+               result  += (1.0 * item.val / item.weight ) * capacity;
+               break;
+           }
+       }
+       return result;
+    }
+}
