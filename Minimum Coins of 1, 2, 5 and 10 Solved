@@ -1,0 +1,18 @@
+class Solution {
+    public int findMin(int n) {
+        // code here
+      ArrayList<Integer> arr = new ArrayList<>(Arrays.asList(10, 5, 2, 1));
+
+      Collections.sort(arr, Collections.reverseOrder());
+        int i = 0,count =0;
+        while(n > 0){
+            if(arr.get(i) <= n){
+                n = n - arr.get(i);
+                count++;
+            }else{
+                i++;
+            }
+        }
+        return count;
+    }
+}
