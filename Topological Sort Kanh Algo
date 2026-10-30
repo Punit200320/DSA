@@ -1,0 +1,34 @@
+class Solution {
+    ArrayList<Integer> topoSort(ArrayList<ArrayList<Integer>> adj) {
+        // code here
+    int n = adj.size();   
+    Queue<Integer> que = new LinkedList<>();
+    int[] indegree = new int[n];
+    
+    for(int u = 0; u < n; u++){
+        for(int v : adj.get(u)){
+            indegree[v]++;
+        }
+    }
+    
+    for(int i = 0; i < n; i++){
+        if(indegree[i] == 0){
+            que.add(i);
+        }
+    }
+    
+    ArrayList<Integer> result = new ArrayList<>();
+    while(!que.isEmpty()){
+        int u = que.poll();
+        result.add(u);
+       for(int v : adj.get(u)){
+           indegree[v]--;
+           if(indegree[v] == 0){
+               que.add(v);
+           }
+       } 
+    }
+    
+    return result;
+    }
+}
