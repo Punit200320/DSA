@@ -1,0 +1,30 @@
+class Solution {
+    public boolean isCyclic(ArrayList<ArrayList<Integer>> adj){
+     Queue<Integer> que = new LinkedList<>();
+     int n = adj.size();
+     int[] indgree = new int[n];
+     int count = 0;
+     for(int  u = 0; u < n; u++){
+         for(int v : adj.get(u)){
+             indgree[v]++;
+         }
+     }
+     for(int i = 0; i < n; i++){
+         if(indgree[i] == 0){
+            que.add(i);
+            count++;
+         }
+     }
+     while(!que.isEmpty()){
+         int u = que.poll();
+         for(int v : adj.get(u)){
+             indgree[v]--;
+             if(indgree[v] == 0){
+                que.add(v);
+                count++;
+             }
+         }
+     }
+     return count != n;
+    }
+}
