@@ -1,0 +1,49 @@
+class Solution {
+    public int[] topo(ArrayList<ArrayList<Integer>> adj,int  n,int[]  indegree){
+     Queue<Integer> que = new LinkedList<>();
+     int count = 0;
+     ArrayList<Integer> res = new ArrayList<>();
+     for(int i = 0; i < n; i++){
+        if(indegree[i] == 0){
+            res.add(i);
+            count++;
+            que.add(i);
+        }
+     }
+     while(!que.isEmpty()){
+        int u = que.poll();
+        for(int v : adj.get(u)){
+            indegree[v]--;
+            if(indegree[v]  == 0){
+                res.add(v);
+                count++;
+                que.add(v);
+            }
+        }
+     }
+     if (count != n) {
+            return new int[0];
+        }
+     int[] ans = new int[n];
+     for(int i = 0; i < n; i++){
+        ans[i] = res.get(i);
+     }
+     return ans;
+    }
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        ArrayList<ArrayList<Integer>> adj = new  ArrayList<>();
+        for(int i = 0; i < numCourses; i++){
+            adj.add(new ArrayList<>());
+        }
+        int[] indegree = new int[numCourses];
+        for(int[] vec: prerequisites){
+            int a = vec[0];
+            int b = vec[1];
+
+            adj.get(b).add(a);
+            indegree[a]++;
+
+        }
+        return topo(adj, numCourses, indegree);
+    }
+}
